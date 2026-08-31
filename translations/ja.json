@@ -1,0 +1,24 @@
+{
+  "LOADING": "接近情報を取得中…",
+  "NO_DATA": "表示するバス停がありません",
+  "NO_BUS": "接近情報はありません",
+  "NO_BUS_FOR_ROUTES": "{routes} 系統の接近情報はありません",
+  "ROUTE_TITLE": "{stop} {routes}系統",
+  "UPDATED_AT": "{time} 更新",
+  "FETCH_ERROR": "取得できません: {error}",
+
+  "SOON": "まもなく",
+  "DEPARTED": "発車済み",
+  "IN_MINUTES": "あと{minutes}分",
+  "IN_HOURS": "あと{hours}時間",
+  "IN_HOURS_MINUTES": "あと{hours}時間{minutes}分",
+
+  "BEFORE_DEPARTURE": "発車前",
+  "ON_TIME": "ほぼ定刻",
+  "DELAY_LATE": "{minutes}分遅れ",
+  "DELAY_EARLY": "{minutes}分早発",
+
+  "LOCATION_RUNNING": "{stop} ({count}個前)",
+  "LOCATION_BEFORE": "{stop} をまだ発車していません",
+  "LOCATION_BEFORE_HERE": "当停留所始発 (発車前)"
+}

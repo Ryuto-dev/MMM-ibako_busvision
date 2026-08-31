@@ -1,0 +1,24 @@
+{
+  "LOADING": "Loading bus approach info…",
+  "NO_DATA": "No bus stops configured",
+  "NO_BUS": "No approaching buses",
+  "NO_BUS_FOR_ROUTES": "No approaching buses on route {routes}",
+  "ROUTE_TITLE": "{stop} route {routes}",
+  "UPDATED_AT": "upd. {time}",
+  "FETCH_ERROR": "Fetch failed: {error}",
+
+  "SOON": "due",
+  "DEPARTED": "departed",
+  "IN_MINUTES": "in {minutes} min",
+  "IN_HOURS": "in {hours} h",
+  "IN_HOURS_MINUTES": "in {hours} h {minutes} min",
+
+  "BEFORE_DEPARTURE": "not departed",
+  "ON_TIME": "on time",
+  "DELAY_LATE": "+{minutes} min",
+  "DELAY_EARLY": "-{minutes} min",
+
+  "LOCATION_RUNNING": "{stop} ({count} stops away)",
+  "LOCATION_BEFORE": "has not left {stop} yet",
+  "LOCATION_BEFORE_HERE": "starts here (not departed)"
+}

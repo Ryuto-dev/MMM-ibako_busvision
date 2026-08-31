@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja" xmlns:te="http://www.seasar.org/teeda/extension">
+<head>
+
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-BCM56RZHGT"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-BCM56RZHGT');</script>
+<meta charset="utf-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=3.0, user-scalable=yes" />
+<link rel="stylesheet" href="/ibako/view/css/sp/SpCommon.css" type="text/css" baseViewId="/view/approachSpecifiedStop.html" />
+<link rel="stylesheet" href="/ibako/view/css/sp/ibarakiBlue/base.css" type="text/css" baseViewId="/view/approachSpecifiedStop.html" id="baseCssInclude" />
+<link rel="stylesheet" href="/ibako/view/css/sp/ibarakiBlue/ApproachSpecifiedStop.css" type="text/css" baseViewId="/view/approachSpecifiedStop.html" id="partCssInclude" />
+<script type="text/javascript" language="JavaScript" src="/ibako/view/js/common/SpLoad.js" baseViewId="/view/approachSpecifiedStop.html"></script>
+<script type="text/javascript" language="JavaScript" src="/ibako/view/js/sp/Approach.js" baseViewId="/view/approachSpecifiedStop.html"></script>
+<script type="text/javascript" language="JavaScript" src="/ibako/view/js/sp/HeaderLink.js" baseViewId="/view/approachSpecifiedStop.html"></script>
+<title id="siteTitleSp">Bus-Vision | 茨城交通 | 茨城 | バスロケ</title>
+</head>
+
+<body>
+<article id="container">
+  <header id="gHeader"></header>
+
+  <section id="conts">
+    <!-- start お知らせ表示 -->
+    <div id="isExistsMsg" class="noticeArea">
+      <ul id="contentItems" class="noticeFrase">
+      	<div class="notice">
+        	<span class="noticeIcon">お知らせ</span>
+        	<span id="content" class="noticeFrase">07：30現在、内原駅信号機故障により踏切閉鎖の為、イオンモ</span>
+        	<span id="isShowAllMsgLink" class="noticeLink"><a id="messageLink" class="messageAll" href="message.html?lang=0">[すべてを表示]</a></span>
+      	</div>
+      </ul>
+    </div>
+    <!-- end お知らせ表示 -->
+
+    <!-- start 機能のタイトル -->
+    <h2 class="pageTitle">通過全車両接近表示</h2>
+    <!-- end 機能のタイトル -->
+
+    <p class="clearFix"></p>
+
+    <!-- start content -->
+    <div class="content">
+
+      <!-- start 更新 -->
+      <div>
+      <form method="get" action="approachSpecifiedStop.html" id="form1">
+        <div class="updateDate"><span id="updateTime">2026/08/29 13:05</span>更新</div>
+        <span omittag="true" refresh="true"><input id="doUpdate" type="submit" class="updateButton" value="更 新" /></span>
+        <!--
+        <input type="hidden" id="stopCdFrom" />
+        <input type="hidden" id="stopCdTo" />
+        -->
+        <input type="hidden" id="stopCdSpecified" name="stopCdSpecified" value="500" />
+        <input type="hidden" id="poleCdSpecified" name="poleCdSpecified" value="1" />
+        <input type="hidden" id="searchHour" name="searchHour" value="" />
+        <input type="hidden" id="searchMinute" name="searchMinute" value="" />
+        <input type="hidden" id="searchAD" name="searchAD" value="-1" />
+        <input type="hidden" id="searchVehicleTypeCd" name="searchVehicleTypeCd" value="" />
+        <input type="hidden" id="lang" name="lang" value="0" />
+      </form>
+      </div>
+      <!-- end 更新 -->
+
+      <!-- start 乗降停留所 -->
+      <div class="resultTitle">
+        <span id="stopNmSpecifiedTitle">総合学校前</span>
+        <div id="resultTitleDetail" class="resultTitleDetail"></div>
+      </div>
+      <!-- end 乗降停留所 -->
+
+      
+      <div id="isNotExistsApproach">
+        <div id="errorMsg" class="errorMsg">該当する接近情報はありません。</div>
+      </div>
+
+      <div>
+      </div>
+
+    </div>
+    <!-- end content -->
+
+    <!-- start メニュー一覧 -->
+    <div class="menuList"><p class="searchTitle">メニュー</p></div>
+
+    <div class="content">
+      <div id="isSiteConf2" class="menu">
+        <a id="decideSelectStop" href="searchStop.html?stopCdFrom=-1&stopCdTo=-1&searchHour=&searchMinute=&searchAD=0&searchVehicleTypeCd=&searchCorpCd=&lang=0"><div class="menuButton searchStopButton"></div></a>
+        <div>乗降指定</div>
+      </div>
+      
+      <div id="isSiteConf4" class="menu">
+        <a id="decideBus" href="searchVehicle.html?inputVehicleNum=&searchVehicleNum=&lang=0"><div class="menuButton searchVehicleButton"></div></a>
+        <div>車両で検索</div>
+      </div>
+      
+      <div id="isAppend1" class="menu">
+        <a id="nearStop" href="searchNearStop.html?stopCdFrom=-1&stopCdTo=-1&lang=0"><div class="menuButton searchNearStopMapButton"></div></a>
+        <div>地図で検索</div>
+      </div>
+      <div id="isAppend6" class="menu">
+        <a id="nearStopPole" href="searchNearStopPole.html?lang=0"><div class="menuButton searchNearStopPoleMapButton"></div></a>
+        <div>通過全車両</div>
+      </div>
+      
+      
+    </div>
+    <!-- end メニュー一覧 -->
+
+    <p class="clearFix"></p>
+
+  </section>
+
+  <section id="section4">
+  <div>
+  <form method="post" id="form4">
+  <footer id="gFooter">
+
+    <div class="contactUs"><a class="ibakoLink" onclick="window.open(this.href); return false;" href="http://www.ibako.co.jp/regular/bus_search/">&nbsp;時刻・運賃検索はこちら&nbsp;</a><br/><a class="ibakoLink" onclick="window.open(this.href); return false;" href="http://www.ibako.co.jp/inquiry/lost.html">&nbsp;落とし物の問合せはこちら&nbsp;</a><br/><a class="ibakoLink" onclick="window.open(this.href); return false;" href="https://www.ibako.co.jp/highway/">&nbsp;便利な高速バスのご案内&nbsp;</a><br/><a class="ibakoLink" onclick="window.open(this.href); return false;" href="http://www.ibako.co.jp/regular/contactless/">&nbsp;クレカタッチ決済のご案内&nbsp;</a><br/><a class="ibakoLink" onclick="window.open(this.href); return false;" href="http://www.ibako.co.jp/regular/qr_pay/">&nbsp;QRコード決済のご案内&nbsp;</a><br/>  <a id="helpLink" class="help" href="help.html?lang=0">ヘルプ</a>  <a id="termsLink" class="terms" href="terms.html?lang=0">必ずお読み下さい</a></div>
+    <div class="multiLangSelect"><span id="isSiteConf1"><select id="langItems" name="langItems" size="1"><option value="">Please select</option><option value="0" selected="selected">日本語</option><option value="1">English</option></select><input type="submit" id="doLangChange" name="doLangChange" /></span></div>
+    <div id="footerCopyright">Copyright(c) 2020-, Ryobi Systems Co.,Ltd. All Rights Reserved.</div>
+
+  </footer>
+  </form>
+  </div>
+  </section>
+</article>
+
+<!-- ポップアップお知らせ用 -->
+<input type="hidden" id="customerCd" name="customerCd" value="52" />
+
+<input type="hidden" id="msgPopupTitle" name="msgPopupTitle" value="お知らせ一覧" />
+<input type="hidden" id="msgPopupSubtitle" name="msgPopupSubtitle" value="&ltお知らせ%%NUM%%&gt" />
+
+</body>
+</html>

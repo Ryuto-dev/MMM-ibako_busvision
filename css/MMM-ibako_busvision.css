@@ -1,0 +1,237 @@
+/* MMM-ibako_busvision.css
+ * MagicMirror の標準クラス (dimmed/bright/small/xsmall) を活かしつつ、
+ * バス情報らしい表示に整える。
+ */
+
+.mmm-ibako-busvision {
+  --ibako-accent: #6cb2ff;
+  --ibako-late: #ff9a5a;
+  --ibako-ontime: #7ddc8a;
+  --ibako-before: #9aa3ad;
+  text-align: left;
+  line-height: 1.25;
+}
+
+/* --- バス停セクション ---------------------------------------------------- */
+
+.mmm-ibako-busvision .ibako-stop {
+  margin-bottom: 14px;
+}
+
+.mmm-ibako-busvision .ibako-stop:last-child {
+  margin-bottom: 0;
+}
+
+.mmm-ibako-busvision .ibako-stop-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  border-bottom: 1px solid #444;
+  padding-bottom: 3px;
+  margin-bottom: 6px;
+}
+
+.mmm-ibako-busvision .ibako-stop-name {
+  font-size: 100%;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.mmm-ibako-busvision .ibako-pole-name {
+  font-size: 75%;
+}
+
+.mmm-ibako-busvision .ibako-update-time {
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.mmm-ibako-busvision .ibako-notice {
+  margin-bottom: 5px;
+  color: #d9c07a;
+}
+
+/* --- 便テーブル ---------------------------------------------------------- */
+
+.mmm-ibako-busvision .ibako-table {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.mmm-ibako-busvision .ibako-row td {
+  padding: 4px 0;
+  vertical-align: top;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.mmm-ibako-busvision .ibako-row:first-child td {
+  border-top: none;
+}
+
+/* 1列目: 時刻 */
+.mmm-ibako-busvision .ibako-time {
+  white-space: nowrap;
+  padding-right: 12px !important;
+  width: 1%;
+}
+
+.mmm-ibako-busvision .ibako-clock {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.mmm-ibako-busvision .ibako-time-main {
+  font-size: 118%;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+/* 遅延時、定刻に取り消し線 */
+.mmm-ibako-busvision .ibako-scheduled-strike {
+  text-decoration: line-through;
+  font-variant-numeric: tabular-nums;
+}
+
+.mmm-ibako-busvision .ibako-countdown {
+  white-space: nowrap;
+}
+
+/* 2列目: 路線・行先 */
+.mmm-ibako-busvision .ibako-info {
+  width: auto;
+}
+
+.mmm-ibako-busvision .ibako-line1 {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.mmm-ibako-busvision .ibako-route-badge {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0 4px;
+  border: 1px solid var(--ibako-accent);
+  border-radius: 3px;
+  color: var(--ibako-accent);
+  font-size: 80%;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  flex: 0 0 auto;
+}
+
+.mmm-ibako-busvision .ibako-destination {
+  color: #e8e8e8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mmm-ibako-busvision .ibako-route-name,
+.mmm-ibako-busvision .ibako-location,
+.mmm-ibako-busvision .ibako-source-pole {
+  margin-top: 1px;
+}
+
+/* mode: "route" — 系統番号を揃えたいので固定幅寄りにする */
+.mmm-ibako-busvision.mode-route .ibako-route-badge {
+  min-width: 2.1em;
+}
+
+.mmm-ibako-busvision .ibako-remarks {
+  margin-top: 1px;
+  color: #d9c07a;
+}
+
+/* 3列目: 状態バッジ */
+.mmm-ibako-busvision .ibako-status {
+  white-space: nowrap;
+  text-align: right;
+  padding-left: 8px !important;
+  width: 1%;
+}
+
+.mmm-ibako-busvision .ibako-badge {
+  display: inline-block;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 72%;
+  border: 1px solid transparent;
+}
+
+.mmm-ibako-busvision .badge-before {
+  color: var(--ibako-before);
+  border-color: rgba(154, 163, 173, 0.5);
+}
+
+.mmm-ibako-busvision .badge-ontime {
+  color: var(--ibako-ontime);
+  border-color: rgba(125, 220, 138, 0.45);
+}
+
+.mmm-ibako-busvision .badge-late {
+  color: var(--ibako-late);
+  border-color: rgba(255, 154, 90, 0.5);
+}
+
+.mmm-ibako-busvision .badge-early {
+  color: var(--ibako-accent);
+  border-color: rgba(108, 178, 255, 0.5);
+}
+
+.mmm-ibako-busvision .badge-unknown {
+  color: #b8b8b8;
+}
+
+/* --- 状態別の見せ方 ------------------------------------------------------ */
+
+/* 発車前 = まだ動き出していないので少し控えめに */
+.mmm-ibako-busvision .state-before .ibako-time-main {
+  color: #cfcfcf;
+  font-weight: 300;
+}
+
+/* 走行中 = 実際に走っているので明るく */
+.mmm-ibako-busvision .state-running .ibako-time-main {
+  color: #fff;
+  font-weight: 400;
+}
+
+/* まもなく来る便を強調 */
+.mmm-ibako-busvision .ibako-row.imminent .ibako-time-main {
+  color: var(--ibako-accent);
+  font-weight: 500;
+}
+
+.mmm-ibako-busvision .ibako-row.imminent .ibako-destination {
+  color: #fff;
+}
+
+/* --- メッセージ ---------------------------------------------------------- */
+
+.mmm-ibako-busvision .ibako-message {
+  padding: 2px 0;
+}
+
+.mmm-ibako-busvision .ibako-message.error {
+  color: var(--ibako-late);
+}
+
+/* --- コンパクト表示 ------------------------------------------------------ */
+
+.mmm-ibako-busvision.compact .ibako-route-name,
+.mmm-ibako-busvision.compact .ibako-location,
+.mmm-ibako-busvision.compact .ibako-source-pole {
+  display: none;
+}
+
+.mmm-ibako-busvision.compact .ibako-row td {
+  padding: 2px 0;
+}
+
+.mmm-ibako-busvision.compact .ibako-time-main {
+  font-size: 105%;
+}

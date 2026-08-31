@@ -1,0 +1,37 @@
+{
+  "name": "mmm-ibako_busvision",
+  "version": "1.0.0",
+  "description": "MagicMirror² module that shows Ibaraki Kotsu (茨城交通) bus approach information scraped from Bus-Vision.",
+  "main": "MMM-ibako_busvision.js",
+  "keywords": [
+    "MagicMirror",
+    "MagicMirror2",
+    "magicmirror-module",
+    "bus",
+    "bus-vision",
+    "茨城交通",
+    "ibaraki",
+    "japan"
+  ],
+  "scripts": {
+    "test": "node test/parser.test.js && node test/route-mode.test.js",
+    "test:parser": "node test/parser.test.js",
+    "test:route": "node test/route-mode.test.js",
+    "find-stop": "node tools/find-stop.js",
+    "preview": "node tools/preview.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ryuto-dev/MMM-ibako_busvision.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ryuto-dev/MMM-ibako_busvision/issues"
+  },
+  "homepage": "https://github.com/Ryuto-dev/MMM-ibako_busvision#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}

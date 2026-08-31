@@ -1,0 +1,17 @@
+# 依存関係
+node_modules/
+package-lock.json
+yarn.lock
+
+# 調査用の一時ファイル (スクレイピング先の生 HTML など)
+research/
+*.log
+tmp/
+.cache/
+
+# エディタ / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
