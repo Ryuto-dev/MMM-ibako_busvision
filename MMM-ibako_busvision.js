@@ -142,6 +142,22 @@ Module.register("MMM-ibako_busvision", {
     this.loaded = false;
     this.configError = null;
 
+    /**
+     * MMM-pages などで非表示になっている間に届いたデータを
+     * 「表示を再開したら反映すべき」というフラグ。
+     *
+     * 背景: MagicMirror はモジュールを非表示にする際、DOM 要素を
+     * `position: fixed`（left/top 指定なし）にする。この状態だと
+     * `width: 100%` のテーブルはビューポート全体を基準に幅が確定してしまう。
+     * 非表示中でも node_helper のポーリングは継続しデータが届くため、
+     * 従来はここで無条件に updateDom() していた結果、間違った幅で
+     * テーブルレイアウトが確定し、再表示時に一瞬崩れて見えていた
+     * （その後 DOM が変化する次の更新で正しい幅に再計算されるまで）。
+     * 非表示中は再描画を保留し、resume() 時に正しい幅の下でまとめて
+     * 反映することでこれを防ぐ。
+     */
+    this._pendingRedraw = false;
+
     if (!Array.isArray(this.config.stops) || this.config.stops.length === 0) {
       if (this.config.stopCd === undefined) {
         this.configError =
@@ -167,6 +183,17 @@ Module.register("MMM-ibako_busvision", {
 
   resume () {
     this.sendSocketNotification("IBAKO_RESUME", { identifier: this.identifier });
+
+    // 非表示中に届いたデータをここで初めて描画する。
+    // この時点では MagicMirror 側が position: static に戻した後なので、
+    // 正しい (region の) 幅を基準にレイアウトが計算される。
+    if (this._pendingRedraw) {
+      this._pendingRedraw = false;
+      // アニメーションなし (speed 0) で即時反映。ここでアニメーションさせると
+      // hide/show の opacity アニメーションと重なってさらに描画タイミングが
+      // ずれるため、re-render 自体は速度 0 にしておく。
+      this.updateDom(0);
+    }
   },
 
   getStyles () {
@@ -188,7 +215,7 @@ Module.register("MMM-ibako_busvision", {
         this.stopErrors.delete(payload.key);
         this.stopData.set(payload.key, { ...payload.data, stop: payload.stop });
         this.loaded = true;
-        this.updateDom(this.config.animationSpeed || 500);
+        this.redrawOrDefer(this.config.animationSpeed || 500);
         break;
 
       case "IBAKO_ERROR":
@@ -198,12 +225,28 @@ Module.register("MMM-ibako_busvision", {
           this.configError = payload.error;
         }
         this.loaded = true;
-        this.updateDom();
+        this.redrawOrDefer();
         break;
 
       default:
         break;
     }
+  },
+
+  /**
+   * データ更新時の再描画。
+   *
+   * モジュールが非表示 (MMM-pages で他のページを表示中など) の間は
+   * DOM を書き換えず、フラグだけ立てて resume() 時にまとめて反映する。
+   * 理由は resume() 側のコメントを参照 (position:fixed 時に width:100%
+   * のテーブルがビューポート基準で確定してしまう問題を避けるため)。
+   */
+  redrawOrDefer (speed) {
+    if (this.hidden) {
+      this._pendingRedraw = true;
+      return;
+    }
+    this.updateDom(speed);
   },
 
   notificationReceived (notification) {

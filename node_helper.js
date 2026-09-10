@@ -196,9 +196,55 @@ module.exports = NodeHelper.create({
     }
   },
 
+  /**
+   * poller の購読者のうち、1 つでも「表示中 (active)」のインスタンスがあるか。
+   * MMM-pages などで全インスタンスが非表示 (suspend) になっている間は
+   * 実際のフェッチをスキップし、茨城交通のサーバへ無駄なアクセスをしない。
+   * (README の「suspend() 中はポーリングを停止する」という記述を実装で保証する)
+   */
+  hasActiveSubscriber (poller) {
+    for (const identifier of poller.subscribers) {
+      const inst = this.instances.get(identifier);
+      // インスタンス情報が見つからない場合は安全側 (フェッチする) に倒す
+      if (!inst || inst.active !== false) return true;
+    }
+    return false;
+  },
+
   setInstanceActive (identifier, active) {
     const inst = this.instances.get(identifier);
-    if (inst) inst.active = active;
+    if (!inst) return;
+    const wasActive = inst.active !== false;
+    inst.active = active;
+
+    // 非表示 → 表示に切り替わったタイミング (resume) で、
+    // データが古ければすぐに再取得して手元の情報を最新化する。
+    // (suspend 中はフェッチ自体をスキップしているため)
+    if (active && !wasActive) {
+      for (const key of inst.stopKeys) {
+        const poller = this.pollers.get(key);
+        if (!poller) continue;
+
+        // 直近データを即座に返す (追加のリクエストなしで UI をすぐ更新できる)
+        if (poller.lastResult) {
+          this.sendSocketNotification("IBAKO_DATA", {
+            identifier,
+            key,
+            stop: poller.stop,
+            data: poller.lastResult
+          });
+        }
+
+        const staleMs = poller.lastResult
+          ? Date.now() - new Date(poller.lastResult.fetchedAt || 0).getTime()
+          : Infinity;
+
+        if (!poller.inFlight && staleMs >= poller.intervalMs) {
+          if (poller.timer) clearTimeout(poller.timer);
+          poller.timer = setTimeout(() => this.poll(key), 0);
+        }
+      }
+    }
   },
 
   /** 手動更新。直近に取得済みなら再利用してサーバを叩かない。 */
@@ -220,6 +266,15 @@ module.exports = NodeHelper.create({
     const poller = this.pollers.get(key);
     if (!poller) return;
     if (poller.inFlight) return;
+
+    // 購読者全員が非表示 (suspend) の間は実際のフェッチをスキップする。
+    // MMM-pages で他のページを表示している間、茨城交通のサーバへ
+    // 無駄なアクセスをしないための措置 (README 記載のポーリング停止)。
+    // 短い間隔で「表示に戻ったか」だけを再確認し続ける。
+    if (!this.hasActiveSubscriber(poller)) {
+      poller.timer = setTimeout(() => this.poll(key), Math.min(poller.intervalMs, 5000));
+      return;
+    }
 
     poller.inFlight = true;
     poller.timer = null;

@@ -108,6 +108,10 @@
   display: flex;
   align-items: baseline;
   gap: 6px;
+  /* flex アイテムは既定で min-width: auto (内容分の最小幅を確保) になるため、
+     子要素の overflow: hidden / text-overflow: ellipsis が効かない。
+     0 にしておくことで destination 側の省略設定が実際に機能する。 */
+  min-width: 0;
 }
 
 .mmm-ibako-busvision .ibako-route-badge {
@@ -128,6 +132,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  /* overflow: hidden / text-overflow: ellipsis はブロック要素に定まった幅が
+     ないと効かない。line1 が flex なので子要素はデフォルトで inline-block 相当の
+     幅計算にならず、行先が長いと表全体を押し広げてしまう。
+     flex アイテムとして縮められるようにし、実際に省略が機能するようにする。 */
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .mmm-ibako-busvision .ibako-route-name,
